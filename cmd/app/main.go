@@ -10,18 +10,31 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/joho/godotenv"
 	"github.com/julienschmidt/httprouter"
 )
 
 func newRouter() *httprouter.Router {
 	mux := httprouter.New()
+	/*  */
+	if err := godotenv.Load(); err != nil {
+		log.Printf("No .env file found: %v", err)
+	}
+	ytApiKey := os.Getenv("YOUTUBE_API_KEY")
+	ytChannelID := os.Getenv("YOUTUBE_CHANNEL_ID")
+	if ytApiKey == "" {
+		log.Fatalf("youtube API key no provided")
+	}
+	if ytChannelID == "" {
+		log.Fatalf("youtube channel ID no provided")
+	}
 
-	mux.GET("/youtube/channel/stats", getChannelStats())
+	mux.GET("/youtube/channel/stats", getChannelStats(ytApiKey, ytChannelID))
 
 	return mux
 }
 
-func getChannelStats() httprouter.Handle {
+func getChannelStatsFirst() httprouter.Handle {
 	return func(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 		w.Write([]byte("response!"))
 	}
