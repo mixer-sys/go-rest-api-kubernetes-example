@@ -1,6 +1,6 @@
 module github.com/mixer-sys/go-rest-api-kubernetes-example
 
-go 1.25.3
+go 1.25
 
 require (
 	cloud.google.com/go/auth v0.18.1 // indirect
