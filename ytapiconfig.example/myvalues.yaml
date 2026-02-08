@@ -1,0 +1,6 @@
+youtubeStatsSettings:
+  ytAPIKey: ""
+  ytChannelID: ""
+
+image:
+  tag: latest
