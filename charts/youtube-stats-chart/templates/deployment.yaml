@@ -45,17 +45,17 @@ spec:
                 name: {{ include "youtube-stats-chart.fullname" . }}-secrets
           ports:
             - name: http
-              containerPort: {{ .Values.service.port }}
+              containerPort: 80
               protocol: TCP
           {{- with .Values.livenessProbe }}
           livenessProbe:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
-          {{- with .Values.readinessProbe }}
+            httpGet:
+              path: /youtube/channel/stats
+              port: http
           readinessProbe:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
-          {{- with .Values.resources }}
+            httpGet:
+              path: /youtube/channel/stats
+              port: http
           resources:
             {{- toYaml . | nindent 12 }}
           {{- end }}
